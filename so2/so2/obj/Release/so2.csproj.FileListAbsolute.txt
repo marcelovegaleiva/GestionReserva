@@ -1,0 +1,6 @@
+C:\Users\htejo\documents\visual studio 2012\Projects\so2\so2\bin\so2.dll
+C:\Users\htejo\documents\visual studio 2012\Projects\so2\so2\bin\so2.pdb
+C:\Users\htejo\documents\visual studio 2012\Projects\so2\so2\obj\Release\so2.dll
+C:\Users\htejo\documents\visual studio 2012\Projects\so2\so2\obj\Release\so2.pdb
+C:\Users\htejo\documents\visual studio 2012\Projects\so2\so2\bin\EntityFramework.dll
+C:\Users\htejo\documents\visual studio 2012\Projects\so2\so2\bin\EntityFramework.xml

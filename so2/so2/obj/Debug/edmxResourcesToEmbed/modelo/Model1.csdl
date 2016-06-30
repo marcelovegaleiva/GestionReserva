@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Clinica_integralModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Clinica_integralEntities2" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Medico" EntityType="Clinica_integralModel.Medico" />
+    <EntitySet Name="Paciente" EntityType="Clinica_integralModel.Paciente" />
+    <EntitySet Name="Reserva" EntityType="Clinica_integralModel.Reserva" />
+    <AssociationSet Name="FK_Reserva_Medico" Association="Clinica_integralModel.FK_Reserva_Medico">
+      <End Role="Medico" EntitySet="Medico" />
+      <End Role="Reserva" EntitySet="Reserva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reserva_Paciente" Association="Clinica_integralModel.FK_Reserva_Paciente">
+      <End Role="Paciente" EntitySet="Paciente" />
+      <End Role="Reserva" EntitySet="Reserva" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Medico">
+    <Key>
+      <PropertyRef Name="id_medico" />
+    </Key>
+    <Property Name="id_medico" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_medico" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="telefono_medico" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Reserva" Relationship="Clinica_integralModel.FK_Reserva_Medico" FromRole="Medico" ToRole="Reserva" />
+  </EntityType>
+  <EntityType Name="Paciente">
+    <Key>
+      <PropertyRef Name="id_paciente" />
+    </Key>
+    <Property Name="id_paciente" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_paciente" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="telefono_paciente" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="medio_pago" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="tipo" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Reserva" Relationship="Clinica_integralModel.FK_Reserva_Paciente" FromRole="Paciente" ToRole="Reserva" />
+  </EntityType>
+  <EntityType Name="Reserva">
+    <Key>
+      <PropertyRef Name="id_reserva" />
+    </Key>
+    <Property Type="Int32" Name="id_reserva" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="id_medico" />
+    <Property Type="Int32" Name="id_paciente" />
+    <Property Type="DateTime" Name="fecha" Precision="0" />
+    <Property Type="String" Name="hora" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="estado" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Medico" Relationship="Clinica_integralModel.FK_Reserva_Medico" FromRole="Reserva" ToRole="Medico" />
+    <NavigationProperty Name="Paciente" Relationship="Clinica_integralModel.FK_Reserva_Paciente" FromRole="Reserva" ToRole="Paciente" />
+  </EntityType>
+  <Association Name="FK_Reserva_Medico">
+    <End Type="Clinica_integralModel.Medico" Role="Medico" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="Clinica_integralModel.Reserva" Role="Reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medico">
+        <PropertyRef Name="id_medico" />
+      </Principal>
+      <Dependent Role="Reserva">
+        <PropertyRef Name="id_medico" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reserva_Paciente">
+    <End Type="Clinica_integralModel.Paciente" Role="Paciente" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="Clinica_integralModel.Reserva" Role="Reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paciente">
+        <PropertyRef Name="id_paciente" />
+      </Principal>
+      <Dependent Role="Reserva">
+        <PropertyRef Name="id_paciente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

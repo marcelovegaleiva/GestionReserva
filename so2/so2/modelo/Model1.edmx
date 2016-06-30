@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Clinica_integralModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="Clinica_integralModelStoreContainer">
+          <EntitySet Name="Medico" EntityType="Clinica_integralModel.Store.Medico" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Paciente" EntityType="Clinica_integralModel.Store.Paciente" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Reserva" EntityType="Clinica_integralModel.Store.Reserva" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Reserva_Medico" Association="Clinica_integralModel.Store.FK_Reserva_Medico">
+            <End Role="Medico" EntitySet="Medico" />
+            <End Role="Reserva" EntitySet="Reserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserva_Paciente" Association="Clinica_integralModel.Store.FK_Reserva_Paciente">
+            <End Role="Paciente" EntitySet="Paciente" />
+            <End Role="Reserva" EntitySet="Reserva" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Medico">
+          <Key>
+            <PropertyRef Name="id_medico" />
+          </Key>
+          <Property Name="id_medico" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_medico" Type="varchar" MaxLength="50" />
+          <Property Name="telefono_medico" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Paciente">
+          <Key>
+            <PropertyRef Name="id_paciente" />
+          </Key>
+          <Property Name="id_paciente" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_paciente" Type="varchar" MaxLength="50" />
+          <Property Name="telefono_paciente" Type="varchar" MaxLength="50" />
+          <Property Name="medio_pago" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="tipo" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Reserva">
+          <Key>
+            <PropertyRef Name="id_reserva" />
+          </Key>
+          <Property Name="id_reserva" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="id_medico" Type="int" />
+          <Property Name="id_paciente" Type="int" />
+          <Property Name="fecha" Type="date" />
+          <Property Name="hora" Type="varchar" MaxLength="50" />
+          <Property Name="estado" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Reserva_Medico">
+          <End Role="Medico" Type="Clinica_integralModel.Store.Medico" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reserva" Type="Clinica_integralModel.Store.Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medico">
+              <PropertyRef Name="id_medico" />
+            </Principal>
+            <Dependent Role="Reserva">
+              <PropertyRef Name="id_medico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserva_Paciente">
+          <End Role="Paciente" Type="Clinica_integralModel.Store.Paciente" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reserva" Type="Clinica_integralModel.Store.Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paciente">
+              <PropertyRef Name="id_paciente" />
+            </Principal>
+            <Dependent Role="Reserva">
+              <PropertyRef Name="id_paciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Clinica_integralModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Clinica_integralEntities2" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Medico" EntityType="Clinica_integralModel.Medico" />
+          <EntitySet Name="Paciente" EntityType="Clinica_integralModel.Paciente" />
+          <EntitySet Name="Reserva" EntityType="Clinica_integralModel.Reserva" />
+          <AssociationSet Name="FK_Reserva_Medico" Association="Clinica_integralModel.FK_Reserva_Medico">
+            <End Role="Medico" EntitySet="Medico" />
+            <End Role="Reserva" EntitySet="Reserva" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserva_Paciente" Association="Clinica_integralModel.FK_Reserva_Paciente">
+            <End Role="Paciente" EntitySet="Paciente" />
+            <End Role="Reserva" EntitySet="Reserva" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Medico">
+          <Key>
+            <PropertyRef Name="id_medico" />
+          </Key>
+          <Property Name="id_medico" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_medico" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="telefono_medico" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Reserva" Relationship="Clinica_integralModel.FK_Reserva_Medico" FromRole="Medico" ToRole="Reserva" />
+        </EntityType>
+        <EntityType Name="Paciente">
+          <Key>
+            <PropertyRef Name="id_paciente" />
+          </Key>
+          <Property Name="id_paciente" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_paciente" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="telefono_paciente" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="medio_pago" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="tipo" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Reserva" Relationship="Clinica_integralModel.FK_Reserva_Paciente" FromRole="Paciente" ToRole="Reserva" />
+        </EntityType>
+        <EntityType Name="Reserva">
+          <Key>
+            <PropertyRef Name="id_reserva" />
+          </Key>
+          <Property Type="Int32" Name="id_reserva" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="id_medico" />
+          <Property Type="Int32" Name="id_paciente" />
+          <Property Type="DateTime" Name="fecha" Precision="0" />
+          <Property Type="String" Name="hora" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="estado" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Medico" Relationship="Clinica_integralModel.FK_Reserva_Medico" FromRole="Reserva" ToRole="Medico" />
+          <NavigationProperty Name="Paciente" Relationship="Clinica_integralModel.FK_Reserva_Paciente" FromRole="Reserva" ToRole="Paciente" />
+        </EntityType>
+        <Association Name="FK_Reserva_Medico">
+          <End Type="Clinica_integralModel.Medico" Role="Medico" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Clinica_integralModel.Reserva" Role="Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medico">
+              <PropertyRef Name="id_medico" />
+            </Principal>
+            <Dependent Role="Reserva">
+              <PropertyRef Name="id_medico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserva_Paciente">
+          <End Type="Clinica_integralModel.Paciente" Role="Paciente" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Clinica_integralModel.Reserva" Role="Reserva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paciente">
+              <PropertyRef Name="id_paciente" />
+            </Principal>
+            <Dependent Role="Reserva">
+              <PropertyRef Name="id_paciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Clinica_integralModelStoreContainer" CdmEntityContainer="Clinica_integralEntities2">
+          <EntitySetMapping Name="Medico">
+            <EntityTypeMapping TypeName="Clinica_integralModel.Medico">
+              <MappingFragment StoreEntitySet="Medico">
+                <ScalarProperty Name="id_medico" ColumnName="id_medico" />
+                <ScalarProperty Name="nombre_medico" ColumnName="nombre_medico" />
+                <ScalarProperty Name="telefono_medico" ColumnName="telefono_medico" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paciente">
+            <EntityTypeMapping TypeName="Clinica_integralModel.Paciente">
+              <MappingFragment StoreEntitySet="Paciente">
+                <ScalarProperty Name="id_paciente" ColumnName="id_paciente" />
+                <ScalarProperty Name="nombre_paciente" ColumnName="nombre_paciente" />
+                <ScalarProperty Name="telefono_paciente" ColumnName="telefono_paciente" />
+                <ScalarProperty Name="medio_pago" ColumnName="medio_pago" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reserva">
+            <EntityTypeMapping TypeName="Clinica_integralModel.Reserva">
+              <MappingFragment StoreEntitySet="Reserva">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id_paciente" ColumnName="id_paciente" />
+                <ScalarProperty Name="id_medico" ColumnName="id_medico" />
+                <ScalarProperty Name="id_reserva" ColumnName="id_reserva" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
